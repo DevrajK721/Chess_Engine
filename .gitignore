@@ -1,5 +1,7 @@
 # Directories to ignore
 /builds
 /cmake-build-debug
+/tests
+/notes
 
 # Files to ignore
