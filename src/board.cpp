@@ -20,6 +20,10 @@ Board::Board()
 
 // Sets up the starting position for the board
 void Board::initializePosition() {
+    white_pieces = 0ULL; // Clear all white pieces
+    black_pieces = 0ULL; // Clear all black pieces
+    occupied = 0ULL;     // Clear all occupied squares
+
     // White Pawns: Second rank (0x000000000000FF00ULL)
     white_pawns = 0x000000000000FF00ULL; // This is in hexadecimal format (converter available online)
     white_pieces |= white_pawns;   // Add white pawns to the white_pieces aggregate
@@ -97,7 +101,7 @@ bool Board::isSquareOccupied(int square, const uint64_t& bitboard) const {
 }
 
 // Displays the bitboard as an 8x8 grid (for debugging purposes)
-void Board::displayBitboard(const uint64_t& bitboard) const {
+void Board::displayBitboard(const uint64_t& bitboard) {
     for (int rank = 7; rank >= 0; --rank) { // Display from rank 8 to rank 1
         for (int file = 0; file < 8; ++file) {
             int square = rank * 8 + file;

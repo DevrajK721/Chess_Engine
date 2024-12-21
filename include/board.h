@@ -18,9 +18,9 @@ public:
     bool isSquareOccupied(int square, const uint64_t& bitboard) const;
 
     // Display function for debugging
-    void displayBitboard(const uint64_t& bitboard) const;
+    static void displayBitboard(const uint64_t& bitboard);
 
-    // Getters for each bitboard (add these)
+    // Getters for each bitboard
     uint64_t getWhitePawns() const { return white_pawns; }
     uint64_t getBlackPawns() const { return black_pawns; }
     uint64_t getWhiteKnights() const { return white_knights; }
