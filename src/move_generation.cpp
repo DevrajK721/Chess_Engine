@@ -377,10 +377,12 @@ namespace MoveGeneration {
             whitePawnCaptures,
             true
         );
+        /*
         std::cout << "White Pawn Moves:" << std::endl;
         board.displayBitboard(whitePawnMoves);
         std::cout << "White Pawn Captures:" << std::endl;
         board.displayBitboard(whitePawnCaptures);
+        */
 
         // Generate White castling moves
         generateCastlingMoves(board, allMoves, true);
@@ -398,36 +400,36 @@ namespace MoveGeneration {
             whiteKnightMoves,
             whiteKnightCaptures
         );
-        std::cout << "White Knight Moves:" << std::endl;
-        board.displayBitboard(whiteKnightMoves);
-        std::cout << "White Knight Captures:" << std::endl;
-        board.displayBitboard(whiteKnightCaptures);
+        // std::cout << "White Knight Moves:" << std::endl;
+        // board.displayBitboard(whiteKnightMoves);
+        // std::cout << "White Knight Captures:" << std::endl;
+        // board.displayBitboard(whiteKnightCaptures);
 
         // Generate moves for other White pieces (bishops, rooks, queens, king)
         uint64_t moves = 0, captures = 0;
         generateBishopMoves(board.getWhiteBishops(), board.getWhitePieces(), board.getBlackPieces(), board.getOccupiedSquares(), moves, captures);
-        std::cout << "White Bishop Moves:" << std::endl;
-        board.displayBitboard(moves);
-        std::cout << "White Bishop Captures:" << std::endl;
-        board.displayBitboard(captures);
+        // std::cout << "White Bishop Moves:" << std::endl;
+        // board.displayBitboard(moves);
+        // std::cout << "White Bishop Captures:" << std::endl;
+        // board.displayBitboard(captures);
 
         generateRookMoves(board.getWhiteRooks(), board.getWhitePieces(), board.getBlackPieces(), board.getOccupiedSquares(), moves, captures);
-        std::cout << "White Rook Moves:" << std::endl;
-        board.displayBitboard(moves);
-        std::cout << "White Rook Captures:" << std::endl;
-        board.displayBitboard(captures);
+        // std::cout << "White Rook Moves:" << std::endl;
+        // board.displayBitboard(moves);
+        // std::cout << "White Rook Captures:" << std::endl;
+        // board.displayBitboard(captures);
 
         generateQueenMoves(board.getWhiteQueens(), board.getWhitePieces(), board.getBlackPieces(), board.getOccupiedSquares(), moves, captures);
-        std::cout << "White Queen Moves:" << std::endl;
-        board.displayBitboard(moves);
-        std::cout << "White Queen Captures:" << std::endl;
-        board.displayBitboard(captures);
+        // std::cout << "White Queen Moves:" << std::endl;
+        // board.displayBitboard(moves);
+        // std::cout << "White Queen Captures:" << std::endl;
+        // board.displayBitboard(captures);
 
         generateKingMoves(board.getWhiteKing(), board.getWhitePieces(), board.getBlackPieces(), board.getOccupiedSquares(), moves, captures);
-        std::cout << "White King Moves:" << std::endl;
-        board.displayBitboard(moves);
-        std::cout << "White King Captures:" << std::endl;
-        board.displayBitboard(captures);
+        // std::cout << "White King Moves:" << std::endl;
+        // board.displayBitboard(moves);
+        // std::cout << "White King Captures:" << std::endl;
+        // board.displayBitboard(captures);
 
         std::cout << "Generating moves for BLACK pieces" << std::endl;
 
@@ -442,10 +444,10 @@ namespace MoveGeneration {
             blackPawnCaptures,
             false
         );
-        std::cout << "Black Pawn Moves:" << std::endl;
-        board.displayBitboard(blackPawnMoves);
-        std::cout << "Black Pawn Captures:" << std::endl;
-        board.displayBitboard(blackPawnCaptures);
+        // std::cout << "Black Pawn Moves:" << std::endl;
+        // board.displayBitboard(blackPawnMoves);
+        // std::cout << "Black Pawn Captures:" << std::endl;
+        // board.displayBitboard(blackPawnCaptures);
 
         // Generate Black castling moves
         generateCastlingMoves(board, allMoves, false);
@@ -463,35 +465,35 @@ namespace MoveGeneration {
             blackKnightMoves,
             blackKnightCaptures
         );
-        std::cout << "Black Knight Moves:" << std::endl;
-        board.displayBitboard(blackKnightMoves);
-        std::cout << "Black Knight Captures:" << std::endl;
-        board.displayBitboard(blackKnightCaptures);
+        // std::cout << "Black Knight Moves:" << std::endl;
+        // board.displayBitboard(blackKnightMoves);
+        // std::cout << "Black Knight Captures:" << std::endl;
+        // board.displayBitboard(blackKnightCaptures);
 
         // Generate moves for other Black pieces (bishops, rooks, queens, king)
         generateBishopMoves(board.getBlackBishops(), board.getBlackPieces(), board.getWhitePieces(), board.getOccupiedSquares(), moves, captures);
-        std::cout << "Black Bishop Moves:" << std::endl;
-        board.displayBitboard(moves);
-        std::cout << "Black Bishop Captures:" << std::endl;
-        board.displayBitboard(captures);
+        // std::cout << "Black Bishop Moves:" << std::endl;
+        // board.displayBitboard(moves);
+        // std::cout << "Black Bishop Captures:" << std::endl;
+        // board.displayBitboard(captures);
 
         generateRookMoves(board.getBlackRooks(), board.getBlackPieces(), board.getWhitePieces(), board.getOccupiedSquares(), moves, captures);
-        std::cout << "Black Rook Moves:" << std::endl;
-        board.displayBitboard(moves);
-        std::cout << "Black Rook Captures:" << std::endl;
-        board.displayBitboard(captures);
+        // std::cout << "Black Rook Moves:" << std::endl;
+        // board.displayBitboard(moves);
+        // std::cout << "Black Rook Captures:" << std::endl;
+        // board.displayBitboard(captures);
 
         generateQueenMoves(board.getBlackQueens(), board.getBlackPieces(), board.getWhitePieces(), board.getOccupiedSquares(), moves, captures);
-        std::cout << "Black Queen Moves:" << std::endl;
-        board.displayBitboard(moves);
-        std::cout << "Black Queen Captures:" << std::endl;
-        board.displayBitboard(captures);
+        // std::cout << "Black Queen Moves:" << std::endl;
+        // board.displayBitboard(moves);
+        // std::cout << "Black Queen Captures:" << std::endl;
+        // board.displayBitboard(captures);
 
         generateKingMoves(board.getBlackKing(), board.getBlackPieces(), board.getWhitePieces(), board.getOccupiedSquares(), moves, captures);
-        std::cout << "Black King Moves:" << std::endl;
-        board.displayBitboard(moves);
-        std::cout << "Black King Captures:" << std::endl;
-        board.displayBitboard(captures);
+        // std::cout << "Black King Moves:" << std::endl;
+        // board.displayBitboard(moves);
+        // std::cout << "Black King Captures:" << std::endl;
+        // board.displayBitboard(captures);
     }
 
     // Utility function to display moves and captures

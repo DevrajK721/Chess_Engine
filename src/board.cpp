@@ -352,11 +352,11 @@ std::vector<Move> Board::generateMoves(bool isWhite) const {
 
     // Debugging to confirm pawn bitboard correctness
     if (!isWhite) {
-        std::cout << "Black Pawns Bitboard:\n";
-        displayBitboard(pawns);
+        // std::cout << "Black Pawns Bitboard:\n";
+        // displayBitboard(pawns);
     } else {
-        std::cout << "White Pawns Bitboard:\n";
-        displayBitboard(pawns);
+        // std::cout << "White Pawns Bitboard:\n";
+        // displayBitboard(pawns);
     }
 
     // Generate pawn moves
@@ -369,10 +369,10 @@ std::vector<Move> Board::generateMoves(bool isWhite) const {
     addPawnCapturesToVector(pawns, capturesBitboard, pawnLeftCaptureDirection, pawnRightCaptureDirection, moves);
 
     // Debugging to confirm generated pawn moves
-    std::cout << (isWhite ? "White Pawn Moves:\n" : "Black Pawn Moves:\n");
-    displayBitboard(movesBitboard);
-    std::cout << (isWhite ? "White Pawn Captures:\n" : "Black Pawn Captures:\n");
-    displayBitboard(capturesBitboard);
+    // std::cout << (isWhite ? "White Pawn Moves:\n" : "Black Pawn Moves:\n");
+    // displayBitboard(movesBitboard);
+    // std::cout << (isWhite ? "White Pawn Captures:\n" : "Black Pawn Captures:\n");
+    // displayBitboard(capturesBitboard);
 
     // Generate knight moves
     MoveGeneration::generateKnightMoves(knights, ownPieces, opponentPieces, movesBitboard, capturesBitboard);
