@@ -2,7 +2,9 @@
 #define MOVE_GENERATION_H
 
 #include <cstdint>
+#include <vector>
 #include "board.h"
+#include "move.h"
 
 namespace MoveGeneration {
     void generatePawnMoves(const uint64_t& pawns, const uint64_t& emptySquares, const uint64_t& opponentPieces, uint64_t enPassantSquare, uint64_t& moves, uint64_t& captures);
@@ -29,6 +31,11 @@ namespace MoveGeneration {
     void displayMoves(const uint64_t& moves);
 
     bool outOfBounds(int sourceSquare, int targetSquare, int direction);
+
+    bool isSquareAttacked(int square, const Board& board, bool byWhite);
+    bool isKingSafe(const Board& board, bool isWhite);
+    bool isMoveLegal(const Board& board, const Move& move, bool isWhite);
+    std::vector<Move> filterLegalMoves(const Board& board, const std::vector<Move>& moves, bool isWhite);
 }
 
 #endif // MOVE_GENERATION_H

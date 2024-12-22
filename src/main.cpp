@@ -3,6 +3,7 @@
 #include "engine.h"
 #include <iostream>
 #include <cstdint>
+#include <vector>
 
 int main() {
     // Initialize the board

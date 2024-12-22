@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <iostream>
+#include "move.h"
 
 class Board {
 public:
@@ -11,6 +12,8 @@ public:
     void initializePosition();
     void setPiece(int square, uint64_t& bitboard);
     void clearPiece(int square, uint64_t& bitboard);
+    void makeMove(const Move& move);
+    void undoMove(const Move& move);
     bool isSquareOccupied(int square, const uint64_t& bitboard) const;
     static void displayBitboard(const uint64_t& bitboard);
 
