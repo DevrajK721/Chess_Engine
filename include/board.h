@@ -3,6 +3,8 @@
 
 #include <cstdint>
 #include <iostream>
+#include <vector>
+#include "move_generation.h"
 #include "move.h"
 
 class Board {
@@ -15,8 +17,11 @@ public:
     void makeMove(const Move& move);
     void undoMove(const Move& move);
     bool isSquareOccupied(int square, const uint64_t& bitboard) const;
+    std::vector<Move> generateMoves(bool isWhite) const;
     static void displayBitboard(const uint64_t& bitboard);
 
+    uint64_t generateOpponentAttacks(bool isWhite) const;
+    uint64_t getOccupiedSquares() const;
     uint64_t getWhitePawns() const { return white_pawns; }
     uint64_t getBlackPawns() const { return black_pawns; }
     uint64_t getWhiteKnights() const { return white_knights; }
@@ -32,10 +37,9 @@ public:
 
     uint64_t getWhitePieces() const { return white_pieces; }
     uint64_t getBlackPieces() const { return black_pieces; }
-    uint64_t getOccupiedSquares() const { return occupied; }
     uint64_t getEnPassantSquare() const { return enPassantSquare; }
     bool canWhiteCastleKingSide() const { return whiteCanCastleKingSide; }
-    bool canWhiteCastleQueenSide() const { return whitecanCastleQueenSide; }
+    bool canWhiteCastleQueenSide() const { return whiteCanCastleQueenSide; }
     bool canBlackCastleKingSide() const { return blackCanCastleKingSide; }
     bool canBlackCastleQueenSide() const { return blackCanCastleQueenSide; }
 
@@ -44,7 +48,7 @@ private:
     uint64_t black_pawns, black_knights, black_bishops, black_rooks, black_queens, black_king;
     uint64_t white_pieces, black_pieces, occupied;
     uint64_t enPassantSquare;
-    bool whiteCanCastleKingSide, whitecanCastleQueenSide;
+    bool whiteCanCastleKingSide, whiteCanCastleQueenSide;
     bool blackCanCastleKingSide, blackCanCastleQueenSide;
 };
 

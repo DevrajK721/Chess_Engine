@@ -14,7 +14,7 @@ include_directories(include)
 file(GLOB SOURCES "src/*.cpp")
 
 # Create the executable
-add_executable(ChessEngine ${SOURCES} src/board.cpp src/engine.cpp src/move_generation.cpp src/main.cpp)
+add_executable(ChessEngine ${SOURCES} src/board.cpp src/engine.cpp src/move_generation.cpp src/main.cpp src/move.cpp)
 
 # Link any third-party libraries if needed
 # Example: target_link_libraries(ChessEngine some_library)

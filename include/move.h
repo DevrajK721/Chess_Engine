@@ -2,6 +2,7 @@
 #define MOVE_H
 
 #include <cstdint>
+#include <string>
 
 struct Move {
     int sourceSquare;         // Source square (0-63)
@@ -13,6 +14,8 @@ struct Move {
     bool isPromotion;         // True if this is a promotion move
     bool isDoublePawnPush;    // True if this is a double pawn push
     int previousEnPassantSquare; // To store the en passant square before the move
+
+    std::string toString() const;
 
     // Constructor
     Move(int source, int target, int promotion = 0, bool capture = false, bool enPassant = false,
