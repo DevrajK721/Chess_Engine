@@ -30,6 +30,21 @@ namespace MoveGeneration {
         }
     }
 
+    void generatePawnCapturesWithEnPassant(
+    const uint64_t& pawns, const uint64_t& opponentPawns, const uint64_t& enPassantSquare,
+    uint64_t& captures) {
+
+        captures = 0ULL;
+
+        // Left diagonal captures (including en passant)
+        uint64_t leftCapture = (pawns & 0x7F7F7F7F7F7F7F7F) << 7;
+        captures |= (leftCapture & opponentPawns) | (leftCapture & enPassantSquare);
+
+        // Right diagonal captures (including en passant)
+        uint64_t rightCapture = (pawns & 0xFEFEFEFEFEFEFEFE) << 9;
+        captures |= (rightCapture & opponentPawns) | (rightCapture & enPassantSquare);
+    }
+
     // Precompute all possible knight attack masks
     uint64_t knightAttacks[64];
     void precomputeKnightAttacks() {
@@ -178,6 +193,45 @@ namespace MoveGeneration {
         return moves;
     }
 
+    void generateCastlingMoves(const Board& board, uint64_t& castlingMoves, bool isWhite) {
+        castlingMoves = 0ULL;
+
+        // Define castling conditions for white and black
+        bool kingSide, queenSide;
+        uint64_t kingPosition, rookKingSidePosition, rookQueenSidePosition;
+        uint64_t kingSidePath, queenSidePath;
+        uint64_t opponentAttacks = 0ULL; // Replace with a function to generate opponent attacks.
+
+        if (isWhite) {
+            kingSide = board.canWhiteCastleKingSide();
+            queenSide = board.canWhiteCastleQueenSide();
+            kingPosition = 0x0000000000000010ULL; // e1
+            rookKingSidePosition = 0x0000000000000080ULL; // h1
+            rookQueenSidePosition = 0x0000000000000001ULL; // a1
+            kingSidePath = 0x0000000000000060ULL; // f1, g1
+            queenSidePath = 0x000000000000000EULL; // d1, c1, b1
+        } else {
+            kingSide = board.canBlackCastleKingSide();
+            queenSide = board.canBlackCastleQueenSide();
+            kingPosition = 0x1000000000000000ULL; // e8
+            rookKingSidePosition = 0x8000000000000000ULL; // h8
+            rookQueenSidePosition = 0x0100000000000000ULL; // a8
+            kingSidePath = 0x6000000000000000ULL; // f8, g8
+            queenSidePath = 0x0E00000000000000ULL; // d8, c8, b8
+        }
+
+        // Check for king-side castling
+        if (kingSide && !(board.getOccupiedSquares() & kingSidePath) && !(opponentAttacks & (kingPosition | kingSidePath))) {
+            castlingMoves |= (isWhite ? 0x0000000000000040ULL : 0x4000000000000000ULL); // g1 or g8
+        }
+
+        // Check for queen-side castling
+        if (queenSide && !(board.getOccupiedSquares() & queenSidePath) && !(opponentAttacks & (kingPosition | queenSidePath))) {
+            castlingMoves |= (isWhite ? 0x0000000000000004ULL : 0x0400000000000000ULL); // c1 or c8
+        }
+    }
+
+
 
     bool outOfBounds(int startSquare, int targetSquare, int direction) {
         int startRank = startSquare / 8;
@@ -191,12 +245,19 @@ namespace MoveGeneration {
 
         std::cout << "Generating moves for WHITE pieces" << std::endl;
 
-        // Generate pawn moves and captures
-        generatePawnMoves(board.getWhitePawns(), ~board.getOccupiedSquares(), board.getBlackPieces(), 0ULL, moves, captures);
+        // Pawn moves
+        MoveGeneration::generatePawnMoves(board.getWhitePawns(), ~board.getOccupiedSquares(), board.getBlackPieces(), board.getEnPassantSquare() ,moves, captures);
+        MoveGeneration::generatePawnCapturesWithEnPassant(board.getWhitePawns(), board.getBlackPawns(),
+                                                          board.getEnPassantSquare(), captures);
         std::cout << "White Pawn moves: " << std::endl;
         board.displayBitboard(moves);
         std::cout << "White Pawn captures: " << std::endl;
         board.displayBitboard(captures);
+
+        // Castling
+        MoveGeneration::generateCastlingMoves(board, moves, true);
+        std::cout << "White Castling moves: " << std::endl;
+        board.displayBitboard(moves);
 
         // Generate knight moves and captures
         generateKnightMoves(board.getWhiteKnights(), board.getWhitePieces(), board.getBlackPieces(), moves, captures);
@@ -235,12 +296,21 @@ namespace MoveGeneration {
 
         std::cout << "Generating moves for BLACK pieces" << std::endl;
 
-        // Generate pawn moves and captures
-        generatePawnMoves(board.getBlackPawns(), ~board.getOccupiedSquares(), board.getWhitePieces(), 0ULL, moves, captures);
+        // Pawn moves
+        // Pawn moves
+        MoveGeneration::generatePawnMoves(board.getBlackPawns(), ~board.getOccupiedSquares(), board.getWhitePieces(), board.getEnPassantSquare() ,moves, captures);
+        MoveGeneration::generatePawnCapturesWithEnPassant(board.getBlackPawns(), board.getWhitePawns(),
+                                                          board.getEnPassantSquare(), captures);
+
         std::cout << "Black Pawn moves: " << std::endl;
         board.displayBitboard(moves);
         std::cout << "Black Pawn captures: " << std::endl;
         board.displayBitboard(captures);
+
+        // Castling
+        MoveGeneration::generateCastlingMoves(board, moves, true);
+        std::cout << "Black Castling moves: " << std::endl;
+        board.displayBitboard(moves);
 
         // Generate knight moves and captures
         generateKnightMoves(board.getBlackKnights(), board.getBlackPieces(), board.getWhitePieces(), moves, captures);
